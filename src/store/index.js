@@ -60,6 +60,22 @@ export const store = new Vuex.Store({
       const newFavouriteMovies = [...state.favouriteMovies];
       newFavouriteMovies.splice(movieId, 1);
       state.favouriteMovies = newFavouriteMovies
+    },
+    UPDATE_POP_LIST(state, movieId) {
+      let val = state.movies[movieId].isFavourite;
+      if (val === 'true') {
+        state.movies[movieId].isFavourite = 'false';
+      } else {
+        state.movies[movieId].isFavourite = 'true';
+      }
+    },
+    UPDATE_SEARCH_LIST(state, movieId) {
+      let val = state.searchedMovies[movieId].isFavourite;
+      if (val === 'true') {
+        state.searchedMovies[movieId].isFavourite = 'false';
+      } else {
+        state.searchedMovies[movieId].isFavourite = 'true';
+      }
     }
   },
   actions: {
@@ -102,10 +118,22 @@ export const store = new Vuex.Store({
       const favMovieIndex = state.favouriteMovies.findIndex(
         m => m.id === id
       );
+      const moviesIndex = state.movies.findIndex(
+        m => m.id === id
+      );
+      const searchIndex = state.searchedMovies.findIndex(
+        m => m.id === id
+      );
       if (favMovieIndex === -1) {
         commit('ADD_TO_FAVOURITES', payload);
       } else {
         commit('REMOVE_FROM_FAVOURITES', favMovieIndex)
+      }
+      if ( moviesIndex !== -1 ){
+        commit('UPDATE_POP_LIST', moviesIndex);
+      }
+      if ( searchIndex !== -1) {
+        commit('UPDATE_SEARCH_LIST', searchIndex);
       }
     }
   }
