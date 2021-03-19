@@ -23,6 +23,9 @@ export const store = new Vuex.Store({
     },
     GET_MOVIE_DETAILS: state => state.movieDetails,
     GET_SEARCH_MOVIES: state => state.searchedMovies,
+    GET_SEARCH_MOVIES_COUNT: (state, getters) => {
+      return getters.GET_SEARCH_MOVIES.length
+    },
     GET_FAVOURITE_MOVIES: state => state.favouriteMovies,
     GET_FAVOURITE_MOVIES_COUNT: (state, getters) => {
       return getters.GET_FAVOURITE_MOVIES.length
@@ -82,7 +85,7 @@ export const store = new Vuex.Store({
             ...m,
             isFavourite: 'false'
           }));
-          commit('SET_MOVIES_ARR', movies);
+          commit('SET_SEARCHED_MOVIES', movies);
           commit('SET_LOADING_STATUS', false);
         })
     },

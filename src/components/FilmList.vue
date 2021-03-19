@@ -36,7 +36,7 @@
     props: {
       moviesArr: {
         type: Array,
-        required: false
+        required: true
       }
     },
     data() {
